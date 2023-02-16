@@ -6,7 +6,7 @@
 /*   By: ivanisp <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:31:09 by ivanisp           #+#    #+#             */
-/*   Updated: 2023/01/30 19:06:38 by ivanisp          ###   ########.fr       */
+/*   Updated: 2023/02/16 21:01:26 by iseldas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,11 @@ static void	pass_bit(int pid, char *string)
 
 int	main(int argc, char **argv)
 {
-	int		pid;
-	char	*string;
-
 	if (argc != 3)
 	{
 		write (1, "\nFail\n", 6);
 		return (0);
 	}
-	pid = ft_atoi(argv[1]);
-	string = argv[2];
-	pass_bit(PID, string);
+	pass_bit(ft_atoi(argv[1]), argv[2]);
 	return (0);
 }

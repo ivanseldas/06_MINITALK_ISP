@@ -6,7 +6,7 @@
 /*   By: ivanisp <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:14:08 by ivanisp           #+#    #+#             */
-/*   Updated: 2023/01/30 19:41:38 by ivanisp          ###   ########.fr       */
+/*   Updated: 2023/02/16 20:22:29 by iseldas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(void)
 		return (0);
 	}
 	ft_putstr(pid_char);
-	while (true)
+	while (1)
 	{
 		signal(SIGUSR1, man_signal);
 		signal(SIGUSR2, man_signal);
