@@ -10,10 +10,10 @@ NAME	=	server client
 all: $(NAME) 
 
 server:		server.o		
-	$(CC) $(CFLAGS) server.c ft_itoa.c -o $(SERVER)
+	$(CC) $(CFLAGS) server.c -o $(SERVER)
 
 client:		client.o
-	$(CC) $(CFLAGS) client.c ft_itoa.c ./utils/ft_atoi.c -o $(CLIENT)
+	$(CC) $(CFLAGS) client.c -o $(CLIENT)
 
 clean:
 	$(RM) server client *.o

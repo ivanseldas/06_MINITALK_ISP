@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivanisp <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 19:48:51 by ivanisp           #+#    #+#             */
-/*   Updated: 2023/02/23 02:13:38 by ivanisp          ###   ########.fr       */
+/*   Created: 2023/01/29 14:14:08 by ivanisp           #+#    #+#             */
+/*   Updated: 2023/02/16 20:22:29 by iseldas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,65 +14,53 @@
 #include <signal.h>
 #include <sys/types.h>
 #include "minitalk.h"
-#include <stdio.h>
 
-int	count;
-char	chr;
+t_string	*g_var;
 
-void	ft_traduce_bit(int bit)
+void	ft_putstr(char *str)
 {
-	char	c;
-
-	if (!chr)
-		chr = 0;
-	if (!count)
-		count = 8;
-	count--;
-//	num[count] = i + '0';
-//	printf("count es: %i\n", count);
-	if (bit == 12)
-		chr |= (1 << count);
-	if (count == 0)
+	while (*str)
 	{
-
-		write(1, &chr, 1);
-		chr = 0;
-		count = 8;
+		write (1, str, 1);
+		str++;
 	}
+	write (1, "\n", 1);
 }
 
-void	ft_putchar(int	c)
+void	man_signal(int bit)
 {
-	write(1, &c, 1);
-}
-
-void	ft_putnbr(int number)
-{
-	if (number < 9)
-	{
-		ft_putchar(number + '0');
-	}
+	if (bit == 0)
+		g_var->c = g_var->c & (~(1 << g_var->i));
 	else
+		g_var->c = g_var->c | (1 << g_var->i);
+	g_var->i++;
+	if (g_var->i == 7)
 	{
-		ft_putnbr(number / 10);
-		ft_putchar(number % 10  + '0');
+		write (1, &(g_var->c), 1);
+		g_var->i = 0;
+		g_var->c = 0;
 	}
 }
 
 int	main(void)
 {
-	int	pid;
+	pid_t	pid;
+	char	*pid_char;
 
-	write(1, "IVAN's Server is Ready\n", 23);
-	write(1, "PID: ", 5);
-	ft_putnbr(getpid());
-	write(1, "\n", 1);
-//	printf("%i\n", getpid());
+	write(1, "Say hi to Ivan's server\nPID: ", 29);
+	pid = getpid();
+	pid_char = ft_itoa(pid);
+	if (!pid_char)
+	{
+		write (1, "Error to get pid\n", 17);
+		return (0);
+	}
+	ft_putstr(pid_char);
 	while (1)
 	{
-		signal(SIGUSR1, ft_traduce_bit);
-		signal(SIGUSR2, ft_traduce_bit);
+		signal(SIGUSR1, man_signal);
+		signal(SIGUSR2, man_signal);
 		pause();
 	}
 	return (0);
-} 
+}
